@@ -108,14 +108,14 @@ public class Lives implements Runnable{
     }
     public void walk(Position x)
     {
-        if(x.x>BattleGround.M||x.y>BattleGround.N)
+        /*if(x.x>BattleGround.M||x.y>BattleGround.N)
         {
             System.out.println("wrong!     x.x="+x.x+"x.y="+x.y);
         }
         else
         {
             System.out.println("right!     x.x="+x.x+"x.y="+x.y);
-        }
+        }*/
         ground[position.x][position.y].SetALL(false,null);
         ground[x.x][x.y].SetALL(true,this);
         this.position=x;
@@ -147,10 +147,11 @@ public class Lives implements Runnable{
     }
     public void showAppearance(GraphicsContext gc, double x, double y, double size)
     {
+
         Image im=new Image(this.attributes.URL);
+       // System.out.println(this.attributes.URL);
         if(this.attributes.living== Attributes.livingStatus.live) {
-//            System.out.println(getName() + "在画自个" + x + " " + y);
-            gc.drawImage(this.myAppearance, x, y, size, size);
+            gc.drawImage(im, x, y, size, size);
             gc.setFill(Color.valueOf("red"));
             gc.fillRect(x, y, size, size / 6);
             gc.setFill(Color.color(0, 1, 0));

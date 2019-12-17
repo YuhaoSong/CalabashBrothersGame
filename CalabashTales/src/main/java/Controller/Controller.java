@@ -22,7 +22,20 @@ public class Controller implements Runnable{
     @FXML private MenuItem startIcon;
     @FXML private MenuItem infoIcon;
     @FXML private Canvas canvas;
-    Model model=new Model(canvas);
+
+    static Model model;
+    public void init()
+    {
+        if(canvas==null)
+        {
+            System.out.println("NO!!!!!!!!!!!");
+        }
+        else
+        {
+            System.out.println("Yes!!!!!!!!!!!");
+        }
+        model=new Model(canvas);
+    }
     public void run() {
 
     }
@@ -48,7 +61,6 @@ public class Controller implements Runnable{
 
     public void fightStart(ActionEvent actionEvent)
     {
-
         try
         {
             new Thread(model).start();

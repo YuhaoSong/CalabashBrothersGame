@@ -48,21 +48,21 @@ public class Model implements  Runnable {
     private void displayBoard(){
         double width = this.canvas.getWidth();
         double height = this.canvas.getHeight();
-        int n = BattleGround.M;
-
+        int n = BattleGround.N;
+        int m = BattleGround.M;
         double boardWidth = height * 6 / 7;
         double startLayoutX = (width - height) / 2 + 70;
         double startLayoutY = (height - boardWidth) / 2;
         double creatureSize = boardWidth / n;
 
-        Image image = new Image("map.jpg");
+        Image image = new Image("pic/map.jpg");
         synchronized (battleGround) {
             this.canvas.getGraphicsContext2D().drawImage(image, 0, 0, image.getWidth(), image.getHeight());
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     double x = startLayoutX + i * creatureSize;
                     double y = startLayoutY + j * creatureSize;
-                    if (!(this.battleGround.ground[j][i].GetIsOccupied())) {
+                    if ((this.battleGround.ground[j][i].GetIsOccupied())) {
                         this.battleGround.ground[j][i].GetWho().showAppearance(this.canvas.getGraphicsContext2D(), x, y, creatureSize);
                     }
                 }
@@ -73,12 +73,12 @@ public class Model implements  Runnable {
         initThreads();
         new Thread(() -> {
             int i = 0;
-            Image image = new Image("win.png");
+            Image image = new Image("pic/win.png");
             while (true){
                 if(!good.stillAlive()){
                     gameStatus = GameStatus.evilWin;
                     System.out.println("妖怪赢了");
-                    image = new Image("fail.png");
+                    image = new Image("pic/fail.png");
                     break;
                 }else if(!bad.stillAlive()){
                     gameStatus = GameStatus.justWin;

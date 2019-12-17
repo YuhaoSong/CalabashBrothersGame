@@ -20,8 +20,9 @@ public class Main extends Application {
     private Parent createContent() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxml/board.fxml"));
-        this.root.getChildren().add(loader.load(getClass().getResourceAsStream("fxml/board.fxml")));
+        this.root.getChildren().add((Node) loader.load(getClass().getResourceAsStream("fxml/board.fxml")));
         controller = loader.getController();
+        controller.init();
         return this.root;
     }
     @Override

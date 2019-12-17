@@ -21,10 +21,10 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/GitHub/java-2019-homeworks/4-Types/171850505-宋昱豪/CalabashTales" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunDashboard">
@@ -64,7 +64,8 @@
       <option name="presentableId" value="Default" />
       <updated>1576130376049</updated>
       <workItem from="1576130378469" duration="19641000" />
-      <workItem from="1576297272595" duration="32534000" />
+      <workItem from="1576297272595" duration="33750000" />
+      <workItem from="1576493837416" duration="5773000" />
     </task>
     <servers />
   </component>

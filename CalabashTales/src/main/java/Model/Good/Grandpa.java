@@ -10,7 +10,7 @@ public class Grandpa extends Lives {
         for(int i=0;i<seeds;i++)
         {
             Attributes CalabashBrothersA=new Attributes(100,100,20,2,Attributes.livingStatus.live,Attributes.Group.good);
-            String url=i+"";
+            String url=i+1+"";
             url="pic/"+url+".png";
             CalabashBrothersA.SetURL(url);
             Position temp=new Position(i+2,position.y+2);
