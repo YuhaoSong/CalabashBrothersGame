@@ -74,21 +74,51 @@ public class Lives implements Runnable{
         {
             case 0:break;//don't move
             case 1:{
-                dst.x--;
-                break;
+                if(dst.x<1)
+                {
+
+                }else
+                {
+                    dst.x--;
+                    break;
+                }
             }
             case 2:{
-                dst.x++;
-                break;
+                if(dst.x>=BattleGround.M-1)
+                {
+
+                }
+                else
+                {
+                    dst.x++;
+                    break;
+                }
+
             }
             case 3:{
-                dst.y++;
-                break;
+                if(dst.y>=BattleGround.N-1)
+                {
+
+                }
+                else
+                {
+                    dst.y++;
+                    break;
+                }
             }
             case 4:{
-                dst.y--;
-                break;
+                if(dst.y<1)
+                {
+
+                }
+                else
+                {
+                    dst.y--;
+                    break;
+                }
+
             }
+            default:break;
         }
         synchronized (ground)
         {

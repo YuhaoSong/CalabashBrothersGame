@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19f7ca34-edff-4f75-bbf5-346af2296346" name="Default Changelist" comment="" />
+    <list default="true" id="19f7ca34-edff-4f75-bbf5-346af2296346" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/World/Lives.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/World/Lives.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/World/Lives.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/World/Lives.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +25,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1Us1ET2UqSiRvNWeEhezDrSXfTM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -66,10 +79,22 @@
       <workItem from="1576130378469" duration="19641000" />
       <workItem from="1576297272595" duration="33750000" />
       <workItem from="1576493837416" duration="5773000" />
+      <workItem from="1576545150819" duration="1691000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

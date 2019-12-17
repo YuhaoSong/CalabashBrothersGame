@@ -58,12 +58,12 @@ public class Model implements  Runnable {
         Image image = new Image("pic/map.jpg");
         synchronized (battleGround) {
             this.canvas.getGraphicsContext2D().drawImage(image, 0, 0, image.getWidth(), image.getHeight());
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
                     double x = startLayoutX + i * creatureSize;
                     double y = startLayoutY + j * creatureSize;
-                    if ((this.battleGround.ground[j][i].GetIsOccupied())) {
-                        this.battleGround.ground[j][i].GetWho().showAppearance(this.canvas.getGraphicsContext2D(), x, y, creatureSize);
+                    if ((this.battleGround.ground[i][j].GetIsOccupied())) {
+                        this.battleGround.ground[i][j].GetWho().showAppearance(this.canvas.getGraphicsContext2D(), x, y, creatureSize);
                     }
                 }
             }

@@ -28,11 +28,11 @@ public class Controller implements Runnable{
     {
         if(canvas==null)
         {
-            System.out.println("NO!!!!!!!!!!!");
+            System.out.println("Canvas NO!!!!!!!!!!!");
         }
         else
         {
-            System.out.println("Yes!!!!!!!!!!!");
+            System.out.println("Canvas Yes!!!!!!!!!!!");
         }
         model=new Model(canvas);
     }
