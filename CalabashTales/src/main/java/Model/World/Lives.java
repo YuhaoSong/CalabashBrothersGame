@@ -175,22 +175,22 @@ public class Lives implements Runnable{
             ground[this.position.x][this.position.y].SetALL(false,null);
         }
     }
-    public void showAppearance(GraphicsContext gc, double x, double y, double size)
+    public void showAppearance(GraphicsContext gc, double x, double y, double w,double h)
     {
 
         Image im=new Image(this.attributes.URL);
        // System.out.println(this.attributes.URL);
         if(this.attributes.living== Attributes.livingStatus.live) {
-            gc.drawImage(im, x, y, size, size);
+            gc.drawImage(im, x, y, w, h);
             gc.setFill(Color.valueOf("red"));
-            gc.fillRect(x, y, size, size / 6);
+            gc.fillRect(x, y, w, w / 6);
             gc.setFill(Color.color(0, 1, 0));
             double hpRatio = attributes.Hp / attributes.maxHp;
-            double hpLength = size * hpRatio;
-            gc.fillRect(x, y, hpLength, size / 6);
+            double hpLength = w * hpRatio;
+            gc.fillRect(x, y, hpLength, w / 6);
         }else if (this.attributes.living== Attributes.livingStatus.dead){
 //            System.out.println(getName() + "画自己坟墓");
-            gc.drawImage(deadImage, x, y, size, size);
+            gc.drawImage(deadImage, x, y, w, h);
         }
     }
 

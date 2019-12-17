@@ -50,20 +50,17 @@ public class Model implements  Runnable {
         double height = this.canvas.getHeight();
         int n = BattleGround.N;
         int m = BattleGround.M;
-        double boardWidth = height * 6 / 7;
-        double startLayoutX = (width - height) / 2 + 70;
-        double startLayoutY = (height - boardWidth) / 2;
-        double creatureSize = boardWidth / n;
+        double w=width/m;double h=height/n;
 
         Image image = new Image("pic/map.jpg");
         synchronized (battleGround) {
             this.canvas.getGraphicsContext2D().drawImage(image, 0, 0, image.getWidth(), image.getHeight());
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    double x = startLayoutX + i * creatureSize;
-                    double y = startLayoutY + j * creatureSize;
+                    double x = i * w;
+                    double y = j * h;
                     if ((this.battleGround.ground[i][j].GetIsOccupied())) {
-                        this.battleGround.ground[i][j].GetWho().showAppearance(this.canvas.getGraphicsContext2D(), x, y, creatureSize);
+                        this.battleGround.ground[i][j].GetWho().showAppearance(this.canvas.getGraphicsContext2D(), x, y, w,h);
                     }
                 }
             }
