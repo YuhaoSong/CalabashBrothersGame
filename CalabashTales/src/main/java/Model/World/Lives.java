@@ -12,17 +12,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
 public class Lives implements Runnable{
+    public static int num=0;
+    public int id;
     static Image deadImage=new Image("pic/dead.png");
     protected Position position;
     protected Attributes attributes;
     protected ImageView myAppearance;
     protected Label myHp;
+
     Random direction=new Random();
     Random evade=new Random();
     protected static Tile ground[][];
@@ -51,7 +55,9 @@ public class Lives implements Runnable{
     public Lives(Position x, Attributes y)
     {
 
-
+        id=num;
+        num=num+1;
+        System.out.print("id==="+id+"\n");
         attributes=y;
         position=x;
         this.myAppearance = new ImageView();
@@ -103,8 +109,8 @@ public class Lives implements Runnable{
             while (this.attributes.living== Attributes.livingStatus.live) {
                 try {
                     randomWalk();
-                    System.out.println("in running");
-                    TimeUnit.MILLISECONDS.sleep(3000);
+                   // System.out.println("in running");
+                    TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -227,7 +233,7 @@ public class Lives implements Runnable{
 
             this.attributes.Hp-=ack;
             int Hp=this.attributes.Hp;
-            System.out.print("cuurent jhp="+this.attributes.Hp);
+            //System.out.print("cuurent jhp="+this.attributes.Hp);
             Platform.runLater(new Runnable(){
                 public void run()
                 {

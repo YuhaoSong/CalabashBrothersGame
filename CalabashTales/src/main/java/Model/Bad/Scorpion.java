@@ -11,7 +11,9 @@ public class Scorpion extends Lives {
     private Formation<Sidekicks> command;
     public Scorpion(Position x, Attributes z)
     {
-
+        id=num;
+        num=num+1;
+        System.out.print("id==="+id+"\n");
         position=x;
         if(ground[x.x][x.y].GetIsOccupied()==false)
         {

@@ -6,6 +6,7 @@ import Model.Good.Good;
 import Model.World.BattleGround;
 import Model.World.Lives;
 import Model.World.Position;
+import Model.World.Replay;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
+import java.io.*;
 import java.lang.management.ThreadInfo;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,10 +32,12 @@ public class Model implements Runnable {
                     gameStatus = GameStatus.evilWin;
                     System.out.println("妖怪赢了");
                     image = new Image("pic/fail.png");
+                    battleGround.setend(true);
                     break;
                 } else if (!bad.stillAlive()) {
                     gameStatus = GameStatus.justWin;
                     System.out.println("葫芦娃赢了");
+                    battleGround.setend(true);
                     break;
                 }
             }
@@ -46,19 +50,20 @@ public class Model implements Runnable {
 
     private static Model Model;
     private GameStatus gameStatus;//游戏状态
-    private static BattleGround battleGround = new BattleGround();
+    private static BattleGround battleGround;
+
+    static {
+        try {
+            battleGround = new BattleGround();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ExecutorService exec = Executors.newCachedThreadPool();
     private Good good;
     private Bad bad;
     private AnchorPane pane;
-    public static Model getInstance() {
-        if (Model != null)
-            return Model;
-        else {
-            return null;
-//            throw new Exception("GameModel还没有初始化好");
-        }
-    }
     public Model(AnchorPane p) {
         Lives.init(battleGround.ground);
         bad = new Bad(battleGround.ground);
@@ -69,6 +74,11 @@ public class Model implements Runnable {
         /*BackgroundImage myBI = new BackgroundImage(new Image("pic/map.jpg",1024,1024,true,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         pane.setBackground(new Background(myBI));*/
+
+
+    }
+    public void play()
+    {
         System.out.print("first");
         for(Lives life: good.members){
             addImage(life);
@@ -76,11 +86,11 @@ public class Model implements Runnable {
         for(Lives life: bad.members){
             addImage(life);
         }
-
     }
-    public void start()
-    {
+    public void replay(File file) throws IOException {
 
+        Replay r=new Replay(file,pane);
+        exec.execute(r);
     }
     void addImage(Lives x) {
 
@@ -108,6 +118,7 @@ public class Model implements Runnable {
     private void initThreads(){
         exec.execute(good);
         exec.execute(bad);
+        exec.execute(battleGround);
     }
 
 }

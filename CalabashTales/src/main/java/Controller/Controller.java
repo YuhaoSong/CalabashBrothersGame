@@ -18,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,17 +44,32 @@ public class Controller {
 
                 if(event.getCode()== KeyCode.SPACE)
                 {
+                    model.play();
                     exec.execute(model);
                 }
-
+                else if(event.getCode()==KeyCode.L)
+                {
+                    FileChooser chooser = new FileChooser(); // 创建一个文件对话框
+                    chooser.setTitle("打开文件"); // 设置文件对话框的标题
+                    chooser.setInitialDirectory(new File("E:\\")); // 设置文件对话框的初始目录
+                    // 给文件对话框添加多个文件类型的过滤器
+                    chooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("所有文本", "*.txt"));
+                    // 显示文件打开对话框，且该对话框支持同时选择多个文件
+                    File file = chooser.showOpenDialog(null);
+                    try {
+                        model.replay(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             };
 
         });
     }
 
 
-    public void openFile(ActionEvent actionEvent)
-    {
+    public void openFile(ActionEvent actionEvent) throws IOException {
         FileChooser chooser = new FileChooser(); // 创建一个文件对话框
         chooser.setTitle("打开文件"); // 设置文件对话框的标题
         chooser.setInitialDirectory(new File("E:\\")); // 设置文件对话框的初始目录
@@ -62,6 +78,7 @@ public class Controller {
                 new FileChooser.ExtensionFilter("所有文本", "*.txt"));
         // 显示文件打开对话框，且该对话框支持同时选择多个文件
         File file = chooser.showOpenDialog(null);
+        model.replay(file);
 
     }
 
@@ -73,6 +90,8 @@ public class Controller {
 
     public void fightStart(ActionEvent actionEvent)
     {
+
+        model.play();
        exec.execute(model);
     }
 

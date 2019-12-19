@@ -11,7 +11,9 @@ import javafx.scene.paint.Color;
 
 public class Snake extends Lives {
     public Snake(Position x,  Attributes z)
-    {
+    { id=num;
+        num=num+1;
+        System.out.print("id==="+id+"\n");
         position=x;
          if(ground[x.x][x.y].GetIsOccupied()==false)
         {

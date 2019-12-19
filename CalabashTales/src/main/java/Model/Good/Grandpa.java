@@ -60,6 +60,9 @@ public class Grandpa extends Lives {
     }
     public Grandpa(Position x,Attributes y)
     {
+        id=num;
+        num=num+1;
+        System.out.print("id==="+id+"\n");
         position=x;
         if(ground[x.x][x.y].GetIsOccupied()==false)
         {
