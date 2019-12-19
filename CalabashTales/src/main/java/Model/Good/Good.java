@@ -10,7 +10,7 @@ public class Good extends Group {
     public Good(Tile y[][])
     {
         super();
-        Position x=new Position(5,10);
+        Position x=new Position(5,2);
         Attributes A=new Attributes(100,100,20,2,Attributes.livingStatus.live,Attributes.Group.good);
         A.SetURL("pic/GrandPa.png");
         leader=new Grandpa(x,A);

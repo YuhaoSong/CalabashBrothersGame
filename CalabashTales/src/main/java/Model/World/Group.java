@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Group implements Runnable{
-    protected Set<Lives> members=new HashSet<Lives>();
+    public Set<Lives> members=new HashSet<Lives>();
     public Group()
     {
 

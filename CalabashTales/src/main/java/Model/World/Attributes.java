@@ -2,13 +2,13 @@ package Model.World;
 
 public class Attributes
 {
-    int maxHp;
-    int Hp;
-    int Ack;
-    int Evade;
-    livingStatus living;
-    Group group;
-    String URL;
+    public int maxHp;
+    public int Hp;
+    public int Ack;
+    public int Evade;
+    public livingStatus living;
+    public Group group;
+    public String URL;
     public enum livingStatus{
         live,dead
     }

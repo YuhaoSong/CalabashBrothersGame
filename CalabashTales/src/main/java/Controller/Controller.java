@@ -3,42 +3,54 @@ package Controller;
 import Model.Model;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class Controller implements Runnable{
+public class Controller {
     @FXML private BorderPane borderpane;
     @FXML private MenuItem openIcon;
     @FXML private MenuItem saveIcon;
     @FXML private MenuItem startIcon;
     @FXML private MenuItem infoIcon;
-    @FXML private Canvas canvas;
-
+    @FXML private AnchorPane anchorpane;
+    private ExecutorService exec = Executors.newCachedThreadPool();
     static Model model;
+
     public void init()
     {
-        if(canvas==null)
-        {
-            System.out.println("Canvas NO!!!!!!!!!!!");
-        }
-        else
-        {
-            System.out.println("Canvas Yes!!!!!!!!!!!");
-        }
-        model=new Model(canvas);
-    }
-    public void run() {
+        model=new Model(anchorpane);
+        borderpane.setFocusTraversable(true);
+        borderpane.addEventFilter(KeyEvent.KEY_PRESSED,new EventHandler<KeyEvent>() {
 
+            public void handle(KeyEvent event)
+            {
+                System.out.print(event.getCode());
+
+                if(event.getCode()== KeyCode.SPACE)
+                {
+                    exec.execute(model);
+                }
+
+            };
+
+        });
     }
+
 
     public void openFile(ActionEvent actionEvent)
     {
@@ -61,14 +73,8 @@ public class Controller implements Runnable{
 
     public void fightStart(ActionEvent actionEvent)
     {
-        try
-        {
-            new Thread(model).start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       exec.execute(model);
     }
-
 
     public void showInfo(ActionEvent actionEvent)
     {

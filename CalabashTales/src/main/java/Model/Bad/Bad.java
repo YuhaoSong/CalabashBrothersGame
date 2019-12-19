@@ -18,7 +18,7 @@ public class Bad extends Group{
             A.SetURL("pic/Snake.png");
             leader=new Snake(x,A);
             members.add(leader);
-            Position x1=new Position(15,10);
+            Position x1=new Position(15,2);
             Attributes A1=new Attributes(100,100,20,2,Attributes.livingStatus.live,Attributes.Group.bad);
             A1.SetURL("pic/Scorpion.png");
             coleader=new Scorpion(x1,A1);

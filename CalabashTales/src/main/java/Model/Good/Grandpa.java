@@ -1,6 +1,10 @@
 package Model.Good;
 
 import Model.World.*;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 public class Grandpa extends Lives {
     private Formation<CalabashBrothers> command;
@@ -19,6 +23,7 @@ public class Grandpa extends Lives {
     }
     public void StartCommand(int number,CalabashBrothers x[])
     {
+        System.out.print("grandpa is at"+"x="+position.x+" y="+position.y);
         command=new Formation<CalabashBrothers>(position,number,ground,x);
     }
     public void T1()
@@ -53,13 +58,20 @@ public class Grandpa extends Lives {
     {
         command.T8();
     }
-    public Grandpa(Position x,Attributes z)
+    public Grandpa(Position x,Attributes y)
     {
         position=x;
         if(ground[x.x][x.y].GetIsOccupied()==false)
         {
             ground[x.x][x.y].SetALL(true,this);
         }
-        attributes=z;
+        attributes=y;
+        this.myAppearance = new ImageView();
+        Image image = new Image(y.URL);
+        //System.out.print(y.URL);
+        myAppearance.setImage(image);
+        myHp=new Label(attributes.Hp+"");
+        myHp.setTextFill(Color.GREEN);
+        SetPic();
     }
 }

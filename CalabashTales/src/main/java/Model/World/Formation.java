@@ -41,6 +41,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -77,6 +79,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -113,6 +117,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -149,6 +155,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -185,6 +193,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -221,6 +231,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -257,6 +269,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -293,6 +307,8 @@ public class Formation<T> {
                 Class<? extends Object> tClass =array[i].getClass();
                 Method walk=tClass.getMethod("walk",Position.class);
                 walk.invoke(array[i],temp);
+                Method SetPic=tClass.getMethod("SetPic");
+                SetPic.invoke(array[i]);
             } catch (SecurityException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
