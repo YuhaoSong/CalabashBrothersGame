@@ -25,8 +25,10 @@ public class Model implements Runnable {
     @Override
     public void run() {
         initThreads();
-        new Thread(() -> {
+        System.out.print("battleground1\n");
+       // new Thread(() -> {
             Image image = new Image("pic/win.png");
+            System.out.print("battleground2\n");
             while (true) {
                 if (!good.stillAlive()) {
                     gameStatus = GameStatus.evilWin;
@@ -40,8 +42,18 @@ public class Model implements Runnable {
                     battleGround.setend(true);
                     break;
                 }
+                else
+                {
+                    System.out.print("living good="+good.livingnum()+"\n");
+                    System.out.print("living bad="+bad.livingnum()+"\n");
+                }
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+    //    });
     }
 
     enum GameStatus{

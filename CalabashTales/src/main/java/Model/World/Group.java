@@ -32,6 +32,17 @@ public class Group implements Runnable{
         }
         return false;
     }
+    public int livingnum()
+    {
+        int num=0;
+        for(Lives life: members){
+            if(life.attributes.living== Attributes.livingStatus.live)
+            {
+                num=num+1;
+            }
+        }
+        return num;
+    }
     @Override
     public void run()
     {

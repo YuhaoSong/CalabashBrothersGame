@@ -26,6 +26,17 @@ public class Attributes
         URL=url;
 
     }
+    public Attributes(Attributes x)
+    {
+        maxHp=x.maxHp;
+        Hp=x.Hp;
+        Ack=x.Ack;
+        Evade=x.Evade;
+        living=x.living;
+        group=x.group;
+        URL=x.URL;
+
+    }
     public Attributes(int maxHPt,int Hpt,int Ackt,int Evadet,livingStatus lt,Group tg)
     {
         maxHp=maxHPt;

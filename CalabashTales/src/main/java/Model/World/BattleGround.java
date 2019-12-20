@@ -6,8 +6,10 @@ import Model.Bad.Snake;
 import Model.Good.CalabashBrothers;
 import Model.Good.Grandpa;
 import Model.World.Tile;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class BattleGround implements  Runnable{
@@ -34,6 +36,7 @@ public class BattleGround implements  Runnable{
     }
     @Override
     public void run() {
+        HashMap<Integer, Boolean> count=new HashMap<Integer,Boolean>();
         for(int i=0;i<M;i++)
         {
             for(int j=0;j<N;j++)
@@ -43,6 +46,7 @@ public class BattleGround implements  Runnable{
                 {
                     Lives one=ground[i][j].GetWho();
                     in=one.id+"_"+one.attributes.URL+"_"+one.attributes.Hp+"_"+one.position.x+"_"+one.position.y+"\t";
+                    count.put(one.id,false);
                     try {
                         out.write(in);
                     } catch (IOException e) {
@@ -62,6 +66,7 @@ public class BattleGround implements  Runnable{
             e.printStackTrace();
         }
 
+
         while(end!=true)
         {
             for(int i=0;i<M;i++)
@@ -73,6 +78,9 @@ public class BattleGround implements  Runnable{
                     {
                         Lives one=ground[i][j].GetWho();
                         in=one.id+"_"+one.attributes.Hp+"_"+one.position.x+"_"+one.position.y+"\t";
+                       // System.out.print(one.attributes.Hp+"\n");
+                        //System.out.print(in+"\n");
+                        count.put(one.id,true);
                         try {
                             out.write(in);
                         } catch (IOException e) {
@@ -80,6 +88,28 @@ public class BattleGround implements  Runnable{
                         }
                     }
                 }
+            }
+            System.out.print("\n");
+            Iterator c=count.entrySet().iterator();
+           // for(Map.Entry<Integer, Boolean> entry: count.entrySet())
+            while(c.hasNext())
+            {
+                Map.Entry<Integer, Boolean> entry=(Map.Entry<Integer, Boolean>) c.next();
+                if(entry.getValue()==false)
+                {
+                    try {
+                        out.write("die_"+entry.getKey());
+                        System.out.print("somebody dieeeeeeeeeeeeeeeeeeeeeeeeeee"+entry.getKey());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    c.remove();
+                }
+
+            }
+            for(int key:count.keySet())
+            {
+               count.put(key,false);
             }
             try {
                 out.newLine();

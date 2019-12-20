@@ -71,40 +71,72 @@ public class Replay implements Runnable{
             for(String s :strA)
             {
                 String[] a=s.split("_");
-                int id=Integer.parseInt(a[0]);
-                int Hp=Integer.parseInt(a[1]);
-                int x=Integer.parseInt(a[2]);
-                int y=Integer.parseInt(a[3]);
-                Position z=new Position(x,y);
-                PicInfo tr=pics.get(id);
-                Platform.runLater(new Runnable(){
-                    public void run(){
-                        if(tr.view==null)
-                        {
-                            System.out.print("wrong id="+id+"\n");
-                        }else
-                        {
-                            System.out.print("wtf"+id+"\n");
+                if(a[0]=="die")
+                {
+                    int id=Integer.parseInt(a[1]);
+                    PicInfo tr=pics.get(id);
+                    Platform.runLater(new Runnable(){
+                        public void run(){
+
+                            ImageView cView = tr.view;
+                            Label bView = tr.l;
+                            Timeline t = new Timeline();
+                            t.getKeyFrames().addAll(
+                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.rotateProperty(),0)),
+                                    new KeyFrame(new Duration(500),new KeyValue(cView.rotateProperty(),180)),
+                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.opacityProperty(),1)),
+                                    new KeyFrame(new Duration(500),new KeyValue(cView.opacityProperty(),0)),
+                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.opacityProperty(),1)),
+                                    new KeyFrame(new Duration(500),new KeyValue(bView.opacityProperty(),0))
+
+                            );
+                            t.play();
                         }
-                        ImageView cView = tr.view;
-                        Label bView = tr.l;
-                        Timeline t = new Timeline();
-                        t.getKeyFrames().addAll(
-                                new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),tr.position.x*50)),
-                                new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), z.x *50)),
-                                new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),tr.position.y*50+10)),
-                                new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),z.y*50+10)),
-                                new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),tr.position.x *50+5)),
-                                new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),z.x *50+5)),
-                                new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),tr.position.y*50-6)),
-                                new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),z.y*50-6))
+                    });
+                    pics.remove(id);
+                }
+                else if(a[0]!="die")
+                {
+                    int id=Integer.parseInt(a[0]);
+                    int Hp=Integer.parseInt(a[1]);
+                    int x=Integer.parseInt(a[2]);
+                    int y=Integer.parseInt(a[3]);
+                    Position z=new Position(x,y);
+                    PicInfo tr=pics.get(id);
+                    Platform.runLater(new Runnable(){
+                        public void run(){
+                            ImageView cView = tr.view;
+                            Label bView = tr.l;
+                            if(Hp!=tr.Hp)
+                            {
+                                tr.l.setText(Hp+"");
+                                tr.Hp=Hp;
+                                if(tr.maxHp!=tr.Hp)
+                                {
+                                    tr.l.setTextFill(Color.RED);
+                                }
+                            }
+                            Timeline t = new Timeline();
+                            t.getKeyFrames().addAll(
+                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),tr.position.x*50)),
+                                    new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), z.x *50)),
+                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),tr.position.y*50+10)),
+                                    new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),z.y*50+10)),
+                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),tr.position.x *50+5)),
+                                    new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),z.x *50+5)),
+                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),tr.position.y*50-6)),
+                                    new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),z.y*50-6))
 
-                        );
+                            );
 
-                        t.play();
-                        tr.position=z;
-                    }
-                });
+                            t.play();
+                            tr.position=z;
+                        }
+                    });
+                }
+
+
+
             }
             try {
                 TimeUnit.MILLISECONDS.sleep(1000);
@@ -141,6 +173,7 @@ public class Replay implements Runnable{
         pi.position=position;
 
         pi.Hp=Hp;
+        pi.maxHp=Hp;
 
         pics.put(id,pi);
     }

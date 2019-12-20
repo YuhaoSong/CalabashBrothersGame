@@ -8,5 +8,6 @@ public class PicInfo {
     public ImageView view;
     public Label l;
     public int Hp;
+    public int maxHp;
     public Position position;
 }

@@ -13,13 +13,13 @@ public class Scorpion extends Lives {
     {
         id=num;
         num=num+1;
-        System.out.print("id==="+id+"\n");
+      //  System.out.print("id==="+id+"\n");
         position=x;
         if(ground[x.x][x.y].GetIsOccupied()==false)
         {
             ground[x.x][x.y].SetALL(true,this);
         }
-        attributes=z;
+        attributes=new Attributes(z);
         this.myAppearance = new ImageView();
         Image image = new Image(z.URL);
        // System.out.print(z.URL);

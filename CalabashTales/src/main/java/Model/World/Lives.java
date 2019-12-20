@@ -62,7 +62,6 @@ public class Lives implements Runnable{
         position=x;
         this.myAppearance = new ImageView();
         Image image = new Image(y.URL);
-        System.out.print(y.URL);
         myAppearance.setImage(image);
         myHp=new Label("blood:"+attributes.Hp+"");
         myHp.setTextFill(Color.BLACK);
@@ -78,7 +77,7 @@ public class Lives implements Runnable{
         myHp.setWrapText(true);
         myHp.setTranslateX(position.x*50+5);
         myHp.setTranslateY(position.y*50-6);
-        System.out.print(myHp.getTranslateX());
+      //  System.out.print(myHp.getTranslateX());
        // myHp.set
     }
 
@@ -108,8 +107,17 @@ public class Lives implements Runnable{
         new Thread(() -> {
             while (this.attributes.living== Attributes.livingStatus.live) {
                 try {
-                    randomWalk();
-                   // System.out.println("in running");
+                    int dir=direction.nextInt(100);
+                    if(dir%7==1)
+                    {
+                        deadlyWalk();
+                    }
+                    else
+                    {
+                        randomWalk();
+                    }
+
+                    //randomWalk();
                     TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -118,9 +126,74 @@ public class Lives implements Runnable{
 
         }).start();
     }
+    public void deadlyWalk()
+    {
+        Lives life=this;
+        // System.out.print(id+"myHp="+attributes.Hp);
+        int dir=direction.nextInt(5);
+        Position dst=null;
+        Position old=new Position(position);
+        for(int i=0;i<BattleGround.M;i++)
+        {
+            for(int j=0;j<BattleGround.N;j++)
+            {
+                if((ground[i][j].GetIsOccupied()==true)&&(ground[i][j].GetWho().attributes.group!=life.attributes.group))
+                {
+                    dst=new Position(ground[i][j].GetWho().position);
+                    break;
+                }
+            }
+        }
+        synchronized (ground)
+        {
+            for(int i=0;i<8;i++)
+            {
+                if((dst.x+rx[i]>=0)&&(dst.y+ry[i]>=0)&&(dst.y+ry[i]<BattleGround.N)&&(dst.x+rx[i]<BattleGround.M)&&(ground[dst.x+rx[i]][dst.y+ry[i]].GetIsOccupied()==false))
+                {
+                    dst.x=dst.x+rx[i];
+                    dst.y=dst.y+ry[i];
+                    walk(dst);
+                    break;
+                }
+            }
+
+        }
+        for(int i=0;i<8;i++)
+        {
+            if((position.x+rx[i]>=0)&&(position.y+ry[i]>=0)&&(position.y+ry[i]<BattleGround.N)&&(position.x+rx[i]<BattleGround.M)&&(ground[position.x+rx[i]][position.y+ry[i]].GetIsOccupied()==true))
+            {
+                Lives Object=ground[position.x+rx[i]][position.y+ry[i]].GetWho();
+                if(Object.attributes.group!=this.attributes.group)
+                {
+                    attack(Object);
+                }
+            }
+        }
+        Platform.runLater(new Runnable(){
+            public void run(){
+                ImageView cView = life.myAppearance;
+                Label bView = life.myHp;
+                Timeline t = new Timeline();
+                t.getKeyFrames().addAll(
+                        new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),old.x*50)),
+                        new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), life.position.x *50)),
+                        new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),old.y*50+10)),
+                        new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),life.position.y*50+10)),
+                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),old.x *50+5)),
+                        new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),life.position.x *50+5)),
+                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),old.y*50-6)),
+                        new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),life.position.y*50-6))
+
+                );
+                t.play();
+            }
+        });
+    }
+
     public void randomWalk()
     {
         Lives life=this;
+       // System.out.print(id+"myHp="+attributes.Hp);
         int dir=direction.nextInt(5);
         Position dst=new Position(position);
         Position old=new Position(position);
@@ -216,8 +289,19 @@ public class Lives implements Runnable{
     }
     public void walk(Position x)
     {
-        ground[position.x][position.y].SetALL(false,null);
-        ground[x.x][x.y].SetALL(true,this);
+        if(ground[x.x][x.y].GetIsOccupied()==true)
+        {
+            Lives one=ground[x.x][x.y].GetWho();
+            ground[position.x][position.y].SetALL(true,one);
+            one.position=position;
+            ground[x.x][x.y].SetALL(true,this);
+        }
+        else
+        {
+            ground[position.x][position.y].SetALL(false,null);
+            ground[x.x][x.y].SetALL(true,this);
+        }
+
         this.position=x;
 
     }
@@ -258,8 +342,6 @@ public class Lives implements Runnable{
         Label bView =this.myHp;
         Platform.runLater(new Runnable(){
             public void run(){
-
-
                 Timeline t = new Timeline();
                 t.getKeyFrames().addAll(
                         new KeyFrame(Duration.ZERO,new KeyValue(cView.rotateProperty(),0)),
