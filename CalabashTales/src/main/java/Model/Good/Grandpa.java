@@ -13,7 +13,7 @@ public class Grandpa extends Lives {
 
         for(int i=0;i<seeds;i++)
         {
-            Attributes CalabashBrothersA=new Attributes(100,100,20,2,Attributes.livingStatus.live,Attributes.Group.good);
+            Attributes CalabashBrothersA=new Attributes(120,120,20,2,Attributes.livingStatus.live,Attributes.Group.good);
             String url=i+1+"";
             url="pic/"+url+".png";
             CalabashBrothersA.SetURL(url);
@@ -23,7 +23,7 @@ public class Grandpa extends Lives {
     }
     public void StartCommand(int number,CalabashBrothers x[])
     {
-        System.out.print("grandpa is at"+"x="+position.x+" y="+position.y);
+        //System.out.print("grandpa is at"+"x="+position.x+" y="+position.y);
         command=new Formation<CalabashBrothers>(position,number,ground,x);
     }
     public void T1()

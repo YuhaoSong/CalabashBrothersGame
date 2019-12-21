@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Group implements Runnable{
+    ExecutorService exec = Executors.newCachedThreadPool();
     public Set<Lives> members=new HashSet<Lives>();
     public Group()
     {
@@ -16,7 +17,7 @@ public class Group implements Runnable{
     }
 
     private void initThreads(){
-        ExecutorService exec = Executors.newCachedThreadPool();
+
         for(Lives life: members){
             exec.execute(life);
         }
@@ -42,6 +43,13 @@ public class Group implements Runnable{
             }
         }
         return num;
+    }
+    public void killall()
+    {
+        for(Lives life: members){
+            life.attributes.living= Attributes.livingStatus.dead;
+        }
+        exec.shutdownNow();
     }
     @Override
     public void run()

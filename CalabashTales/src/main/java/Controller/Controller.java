@@ -44,11 +44,13 @@ public class Controller {
 
                 if(event.getCode()== KeyCode.SPACE)
                 {
+                    clear();
                     model.play();
                     exec.execute(model);
                 }
                 else if(event.getCode()==KeyCode.L)
                 {
+                    clear();
                     FileChooser chooser = new FileChooser(); // 创建一个文件对话框
                     chooser.setTitle("打开文件"); // 设置文件对话框的标题
                     chooser.setInitialDirectory(new File("E:\\")); // 设置文件对话框的初始目录
@@ -68,7 +70,12 @@ public class Controller {
         });
     }
 
-
+    public void clear()
+    {
+        anchorpane.getChildren().clear();
+        model=new Model(anchorpane);
+        //model.battleGround.clear();
+    }
     public void openFile(ActionEvent actionEvent) throws IOException {
         FileChooser chooser = new FileChooser(); // 创建一个文件对话框
         chooser.setTitle("打开文件"); // 设置文件对话框的标题

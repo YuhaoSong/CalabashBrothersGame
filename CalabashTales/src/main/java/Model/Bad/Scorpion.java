@@ -40,7 +40,7 @@ public class Scorpion extends Lives {
     }
     public void StartCommand(int number,Sidekicks x[])
     {
-        System.out.print("Scorpion is at"+"x="+position.x+" y="+position.y);
+       // System.out.print("Scorpion is at"+"x="+position.x+" y="+position.y);
         command=new Formation<Sidekicks>(position,number,ground,x);
     }
     public void T1()

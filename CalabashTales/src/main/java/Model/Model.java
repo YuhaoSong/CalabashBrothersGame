@@ -34,19 +34,42 @@ public class Model implements Runnable {
                     gameStatus = GameStatus.evilWin;
                     System.out.println("妖怪赢了");
                     image = new Image("pic/fail.png");
+                    ImageView s=new ImageView(image);
                     battleGround.setend(true);
+                    battleGround.outcome(false);
+                    good.killall();
+                    bad.killall();
+                    Platform.runLater(()->{
+                        pane.getChildren().add(s);
+                        s.setX(400);
+                        s.setY(450);
+                        s.setFitHeight(100);
+                        s.setFitWidth(200);
+                    });
+
                     break;
                 } else if (!bad.stillAlive()) {
                     gameStatus = GameStatus.justWin;
                     System.out.println("葫芦娃赢了");
+                    ImageView s=new ImageView(image);
                     battleGround.setend(true);
+                    battleGround.outcome(true);
+                    good.killall();
+                    bad.killall();
+                    Platform.runLater(()->{
+                        pane.getChildren().add(s);
+                        s.setX(400);
+                        s.setY(450);
+                        s.setFitHeight(100);
+                        s.setFitWidth(200);
+                    });
                     break;
                 }
-                else
+              /*  else
                 {
                     System.out.print("living good="+good.livingnum()+"\n");
                     System.out.print("living bad="+bad.livingnum()+"\n");
-                }
+                }*/
                 try {
                     TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
@@ -62,7 +85,7 @@ public class Model implements Runnable {
 
     private static Model Model;
     private GameStatus gameStatus;//游戏状态
-    private static BattleGround battleGround;
+    public static BattleGround battleGround;
 
     static {
         try {
@@ -77,15 +100,16 @@ public class Model implements Runnable {
     private Bad bad;
     private AnchorPane pane;
     public Model(AnchorPane p) {
+        battleGround.clear();
         Lives.init(battleGround.ground);
         bad = new Bad(battleGround.ground);
         good = new Good(battleGround.ground);
         this.pane=p;
         gameStatus = GameStatus.going;
         Model = this;
-        /*BackgroundImage myBI = new BackgroundImage(new Image("pic/map.jpg",1024,1024,true,true),
+        BackgroundImage myBI = new BackgroundImage(new Image("pic/map.jpg",1000,1000,true,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        pane.setBackground(new Background(myBI));*/
+        pane.setBackground(new Background(myBI));
 
 
     }

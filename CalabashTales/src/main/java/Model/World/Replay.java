@@ -41,6 +41,7 @@ public class Replay implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+      //  System.out.print("wtfffffffffffffffff"+t+"\n");
         String[] strA=t.split("\t");
         for(String s :strA)
         {
@@ -71,31 +72,64 @@ public class Replay implements Runnable{
             for(String s :strA)
             {
                 String[] a=s.split("_");
-                if(a[0]=="die")
+                //System.out.print(a[0]+"\n");
+                if(a[0].equals("win"))
+                {
+                    Image image = new Image("pic/win.png");
+                    ImageView rs=new ImageView(image);
+                    Platform.runLater(()->{
+                        pane.getChildren().add(rs);
+                        rs.setX(400);
+                        rs.setY(450);
+                        rs.setFitHeight(100);
+                        rs.setFitWidth(200);
+                    });
+                }
+                else if(a[0].equals("fail"))
+                {
+                    Image image = new Image("pic/fail.png");
+                    ImageView rs=new ImageView(image);
+                    Platform.runLater(()->{
+                        pane.getChildren().add(rs);
+                        rs.setX(400);
+                        rs.setY(450);
+                        rs.setFitHeight(100);
+                        rs.setFitWidth(200);
+                    });
+                }
+                else if(a[0].equals("die"))
                 {
                     int id=Integer.parseInt(a[1]);
                     PicInfo tr=pics.get(id);
-                    Platform.runLater(new Runnable(){
-                        public void run(){
+                    if(tr==null)
+                    {
+                        System.out.print(id+"null\n");
+                    }
+                    else
+                    {
+                        Platform.runLater(new Runnable(){
+                            public void run(){
+                                System.out.print(id+"die\n");
+                                ImageView cView = tr.view;
+                                Label bView = tr.l;
+                                Timeline t = new Timeline();
+                                t.getKeyFrames().addAll(
+                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.rotateProperty(),0)),
+                                        new KeyFrame(new Duration(500),new KeyValue(cView.rotateProperty(),180)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.opacityProperty(),1)),
+                                        new KeyFrame(new Duration(500),new KeyValue(cView.opacityProperty(),0)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.opacityProperty(),1)),
+                                        new KeyFrame(new Duration(500),new KeyValue(bView.opacityProperty(),0))
 
-                            ImageView cView = tr.view;
-                            Label bView = tr.l;
-                            Timeline t = new Timeline();
-                            t.getKeyFrames().addAll(
-                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.rotateProperty(),0)),
-                                    new KeyFrame(new Duration(500),new KeyValue(cView.rotateProperty(),180)),
-                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.opacityProperty(),1)),
-                                    new KeyFrame(new Duration(500),new KeyValue(cView.opacityProperty(),0)),
-                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.opacityProperty(),1)),
-                                    new KeyFrame(new Duration(500),new KeyValue(bView.opacityProperty(),0))
+                                );
+                                t.play();
+                            }
+                        });
+                        pics.remove(id);
+                    }
 
-                            );
-                            t.play();
-                        }
-                    });
-                    pics.remove(id);
                 }
-                else if(a[0]!="die")
+                else if(!a[0].equals("die"))
                 {
                     int id=Integer.parseInt(a[0]);
                     int Hp=Integer.parseInt(a[1]);
@@ -105,32 +139,41 @@ public class Replay implements Runnable{
                     PicInfo tr=pics.get(id);
                     Platform.runLater(new Runnable(){
                         public void run(){
-                            ImageView cView = tr.view;
-                            Label bView = tr.l;
-                            if(Hp!=tr.Hp)
+                            if(tr==null)
                             {
-                                tr.l.setText(Hp+"");
-                                tr.Hp=Hp;
-                                if(tr.maxHp!=tr.Hp)
-                                {
-                                    tr.l.setTextFill(Color.RED);
-                                }
+                                System.out.print(id+"null\n");
+
                             }
-                            Timeline t = new Timeline();
-                            t.getKeyFrames().addAll(
-                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),tr.position.x*50)),
-                                    new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), z.x *50)),
-                                    new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),tr.position.y*50+10)),
-                                    new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),z.y*50+10)),
-                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),tr.position.x *50+5)),
-                                    new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),z.x *50+5)),
-                                    new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),tr.position.y*50-6)),
-                                    new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),z.y*50-6))
+                            else
+                            {
+                                ImageView cView = tr.view;
+                                Label bView = tr.l;
+                                if(Hp!=tr.Hp)
+                                {
+                                    tr.l.setText(Hp+"");
+                                    tr.Hp=Hp;
+                                    if(tr.maxHp!=tr.Hp)
+                                    {
+                                        tr.l.setTextFill(Color.RED);
+                                    }
+                                }
+                                Timeline t = new Timeline();
+                                t.getKeyFrames().addAll(
+                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),tr.position.x*50)),
+                                        new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), z.x *50)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),tr.position.y*50+10)),
+                                        new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),z.y*50+10)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),tr.position.x *50+5)),
+                                        new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),z.x *50+5)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),tr.position.y*50-6)),
+                                        new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),z.y*50-6))
 
-                            );
+                                );
 
-                            t.play();
-                            tr.position=z;
+                                t.play();
+                                tr.position=z;
+                            }
+
                         }
                     });
                 }
