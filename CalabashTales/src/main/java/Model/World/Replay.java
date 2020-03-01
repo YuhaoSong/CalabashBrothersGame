@@ -24,7 +24,7 @@ public class Replay implements Runnable{
     BufferedReader in;
     AnchorPane pane;
     public HashMap<Integer,PicInfo> pics=new HashMap<Integer,PicInfo>();
-
+    public static Image dead=new Image("pic/dead.png");
     public Replay(File file, AnchorPane pane) {
 
         try{in = new BufferedReader(new InputStreamReader(new FileInputStream(file),"Unicode"));}
@@ -110,16 +110,17 @@ public class Replay implements Runnable{
                         Platform.runLater(new Runnable(){
                             public void run(){
                                 System.out.print(id+"die\n");
-                                ImageView cView = tr.view;
-                                Label bView = tr.l;
+                                ImageView imageView = tr.view;
+                                tr.view.setImage(dead);
+                                Label label = tr.l;
                                 Timeline t = new Timeline();
                                 t.getKeyFrames().addAll(
-                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.rotateProperty(),0)),
-                                        new KeyFrame(new Duration(500),new KeyValue(cView.rotateProperty(),180)),
-                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.opacityProperty(),1)),
-                                        new KeyFrame(new Duration(500),new KeyValue(cView.opacityProperty(),0)),
-                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.opacityProperty(),1)),
-                                        new KeyFrame(new Duration(500),new KeyValue(bView.opacityProperty(),0))
+                                        new KeyFrame(Duration.ZERO,new KeyValue(imageView.rotateProperty(),0)),
+                                        new KeyFrame(new Duration(500),new KeyValue(imageView.rotateProperty(),180)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(imageView.opacityProperty(),1)),
+                                        new KeyFrame(new Duration(500),new KeyValue(imageView.opacityProperty(),0)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(label.opacityProperty(),1)),
+                                        new KeyFrame(new Duration(500),new KeyValue(label.opacityProperty(),0))
 
                                 );
                                 t.play();
@@ -146,8 +147,8 @@ public class Replay implements Runnable{
                             }
                             else
                             {
-                                ImageView cView = tr.view;
-                                Label bView = tr.l;
+                                ImageView imageView = tr.view;
+                                Label label = tr.l;
                                 if(Hp!=tr.Hp)
                                 {
                                     tr.l.setText(Hp+"");
@@ -159,14 +160,14 @@ public class Replay implements Runnable{
                                 }
                                 Timeline t = new Timeline();
                                 t.getKeyFrames().addAll(
-                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.xProperty(),tr.position.x*50)),
-                                        new KeyFrame(new Duration(500),new KeyValue(cView.xProperty(), z.x *50)),
-                                        new KeyFrame(Duration.ZERO,new KeyValue(cView.yProperty(),tr.position.y*50+10)),
-                                        new KeyFrame(new Duration(500),new KeyValue(cView.yProperty(),z.y*50+10)),
-                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateXProperty(),tr.position.x *50+5)),
-                                        new KeyFrame(new Duration(500),new KeyValue(bView.translateXProperty(),z.x *50+5)),
-                                        new KeyFrame(Duration.ZERO,new KeyValue(bView.translateYProperty(),tr.position.y*50-6)),
-                                        new KeyFrame(new Duration(500),new KeyValue(bView.translateYProperty(),z.y*50-6))
+                                        new KeyFrame(Duration.ZERO,new KeyValue(imageView.xProperty(),tr.position.x*50)),
+                                        new KeyFrame(new Duration(500),new KeyValue(imageView.xProperty(), z.x *50)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(imageView.yProperty(),tr.position.y*50+10)),
+                                        new KeyFrame(new Duration(500),new KeyValue(imageView.yProperty(),z.y*50+10)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(label.translateXProperty(),tr.position.x *50+5)),
+                                        new KeyFrame(new Duration(500),new KeyValue(label.translateXProperty(),z.x *50+5)),
+                                        new KeyFrame(Duration.ZERO,new KeyValue(label.translateYProperty(),tr.position.y*50-6)),
+                                        new KeyFrame(new Duration(500),new KeyValue(label.translateYProperty(),z.y*50-6))
 
                                 );
 
@@ -177,9 +178,6 @@ public class Replay implements Runnable{
                         }
                     });
                 }
-
-
-
             }
             try {
                 TimeUnit.MILLISECONDS.sleep(1000);
@@ -198,9 +196,6 @@ public class Replay implements Runnable{
     public void initPic(int id,String Url,int Hp,Position position)
     {
         PicInfo pi=new PicInfo();
-
-       // pi.id=id;
-
         ImageView t= new ImageView();
         Image image = new Image(Url);
         t.setImage(image);
@@ -234,28 +229,4 @@ public class Replay implements Runnable{
            pi.l.setTranslateY(pi.position.y*50-6);
         }
     }
-  /*  public void Replay(File file, AnchorPane pane) throws IOException
-    {
-        in = new BufferedReader(new InputStreamReader(new FileInputStream(file),"Unicode"));
-        this.pane=pane;
-        String t= null;
-        try {
-            t = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] strA=t.split(" ");
-        for(String s :strA)
-        {
-            String[] a=s.split("_");
-            int id=Integer.parseInt(a[0]);
-            String Url=a[1];
-            int Hp=Integer.parseInt(a[2]);
-            int x=Integer.parseInt(a[3]);
-            int y=Integer.parseInt(a[4]);
-            Position z=new Position(x,y);
-            initPic(id,Url,Hp,z);
-        }
-        showadd();
-    }*/
 }

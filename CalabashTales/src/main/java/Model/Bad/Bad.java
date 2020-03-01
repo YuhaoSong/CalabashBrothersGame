@@ -8,11 +8,12 @@ import Model.World.Tile;
 public class Bad extends Group{
     Snake leader;
     Scorpion coleader;
-    public Bad(Tile y[][])
+    public Bad(Tile y[][],int num)
     {
 
 
             super();
+            formnum=num;
             Position x=new Position(18,10);
             Attributes A=new Attributes(100,100,20,2,Attributes.livingStatus.live,Attributes.Group.bad);
             A.SetURL("pic/Snake.png");
@@ -30,7 +31,18 @@ public class Bad extends Group{
                 members.add(SD[i]);
             }
             coleader.StartCommand(7,SD);
-            coleader.T1();
+        switch (formnum)
+        {
+            case 0:coleader.T1();break;
+            case 1:coleader.T2();break;
+            case 2:coleader.T3();break;
+            case 3:coleader.T4();break;
+            case 4:coleader.T5();break;
+            case 5:coleader.T6();break;
+            case 6:coleader.T7();break;
+            case 7:coleader.T8();break;
+            default:coleader.T1();break;
+        }
 
 
     }

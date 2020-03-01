@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 public class Group implements Runnable{
     ExecutorService exec = Executors.newCachedThreadPool();
     public Set<Lives> members=new HashSet<Lives>();
+    protected int formnum=0;
     public Group()
     {
 

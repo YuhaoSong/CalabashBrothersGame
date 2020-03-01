@@ -24,6 +24,8 @@
                 <Menu mnemonicParsing="false" text="Control">
                   <items>
                     <MenuItem fx:id="startIcon" mnemonicParsing="false" onAction="#fightStart" text="Start" />
+                        <MenuItem fx:id="CBformation" mnemonicParsing="false" onAction="#GformationSet" text="GOODFormation" />
+                        <MenuItem fx:id="MONformation" mnemonicParsing="false" onAction="#BformationSet" text="BADFormation" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

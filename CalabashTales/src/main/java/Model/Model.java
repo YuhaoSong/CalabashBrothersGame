@@ -26,14 +26,10 @@ public class Model implements Runnable {
     public void run() {
         initThreads();
         System.out.print("battleground1\n");
-       // new Thread(() -> {
-            Image image = new Image("pic/win.png");
             System.out.print("battleground2\n");
             while (true) {
                 if (!good.stillAlive()) {
-                    gameStatus = GameStatus.evilWin;
-                    System.out.println("妖怪赢了");
-                    image = new Image("pic/fail.png");
+                    Image image = new Image("pic/fail.png");
                     ImageView s=new ImageView(image);
                     battleGround.setend(true);
                     battleGround.outcome(false);
@@ -49,8 +45,7 @@ public class Model implements Runnable {
 
                     break;
                 } else if (!bad.stillAlive()) {
-                    gameStatus = GameStatus.justWin;
-                    System.out.println("葫芦娃赢了");
+                    Image image = new Image("pic/win.png");
                     ImageView s=new ImageView(image);
                     battleGround.setend(true);
                     battleGround.outcome(true);
@@ -65,31 +60,19 @@ public class Model implements Runnable {
                     });
                     break;
                 }
-              /*  else
-                {
-                    System.out.print("living good="+good.livingnum()+"\n");
-                    System.out.print("living bad="+bad.livingnum()+"\n");
-                }*/
                 try {
                     TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-    //    });
     }
 
-    enum GameStatus{
-        going, justWin, evilWin
-    }
-
-    private static Model Model;
-    private GameStatus gameStatus;//游戏状态
     public static BattleGround battleGround;
 
     static {
         try {
-            battleGround = new BattleGround();
+            battleGround = new BattleGround(Controller.file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,19 +82,15 @@ public class Model implements Runnable {
     private Good good;
     private Bad bad;
     private AnchorPane pane;
-    public Model(AnchorPane p) {
-        battleGround.clear();
+    public Model(AnchorPane p,int num1,int num2) throws IOException {
+        battleGround.clear(Controller.file);
         Lives.init(battleGround.ground);
-        bad = new Bad(battleGround.ground);
-        good = new Good(battleGround.ground);
+        bad = new Bad(battleGround.ground,num1);
+        good = new Good(battleGround.ground,num2);
         this.pane=p;
-        gameStatus = GameStatus.going;
-        Model = this;
         BackgroundImage myBI = new BackgroundImage(new Image("pic/map.jpg",1000,1000,true,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         pane.setBackground(new Background(myBI));
-
-
     }
     public void play()
     {
@@ -128,7 +107,7 @@ public class Model implements Runnable {
         Replay r=new Replay(file,pane);
         exec.execute(r);
     }
-    void addImage(Lives x) {
+    public void addImage(Lives x) {
 
         if(pane==null)
         {
@@ -148,7 +127,6 @@ public class Model implements Runnable {
         pane.getChildren().add(x.GetLabel());
 
     }
-
 
 
     private void initThreads(){
